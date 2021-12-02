@@ -5,9 +5,9 @@ import requests
 from config.settings.base import *
 
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS += ['13.125.59.166', 'admin.domain.com']
+ALLOWED_HOSTS += ['post-ecs-alb-1600960463.ap-northeast-2.elb.amazonaws.com', 'admin.domain.com']
 
 try:
     EC2_PRIVATE_IP = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', timeout=0.1).text
