@@ -26,25 +26,30 @@ DB_PASSWORD = 'admin123!'
 DB_PORT = '5432'
 DB_WRITER_HOST = 'database-2.cxhta3eej7on.ap-northeast-2.rds.amazonaws.com'
 DB_READER_HOST = 'database-2.cxhta3eej7on.ap-northeast-2.rds.amazonaws.com'
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_WRITER_HOST,
-        'PORT': DB_PORT,
-    },
-    'reader': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_READER_HOST,
-        'PORT': DB_PORT,
-    },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': DB_NAME,
+#         'USER': DB_USER,
+#         'PASSWORD': DB_PASSWORD,
+#         'HOST': DB_WRITER_HOST,
+#         'PORT': DB_PORT,
+#     },
+#     'reader': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': DB_NAME,
+#         'USER': DB_USER,
+#         'PASSWORD': DB_PASSWORD,
+#         'HOST': DB_READER_HOST,
+#         'PORT': DB_PORT,
+#     },
+# }
 
 
 # REDIS
