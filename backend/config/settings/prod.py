@@ -7,7 +7,7 @@ from config.settings.base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS += ['api.domain.com', 'admin.domain.com']
+ALLOWED_HOSTS += ['13.125.59.166', 'admin.domain.com']
 
 try:
     EC2_PRIVATE_IP = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', timeout=0.1).text
