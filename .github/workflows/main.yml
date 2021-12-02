@@ -76,7 +76,7 @@ jobs:
       - name: Download TaskDefinition(WEB)
         id: tf-web
         continue-on-error: true
-        run: aws ecs describe-task-definition --task-definition web-family --query taskDefinition > tf.web.json
+        run: aws ecs describe-task-definition --task-definition ${{ env.PROJECT_NAME }}-ecs-web-family --query taskDefinition > tf.web.json
       - name: Deploy Service(WEB)
         if: steps.tf-web.outcome == 'success'
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -89,7 +89,7 @@ jobs:
       - name: Download TaskDefinition(WEBSOCKET)
         id: tf-websocket
         continue-on-error: true
-        run: aws ecs describe-task-definition --task-definition websocket-family --query taskDefinition > tf.websocket.json
+        run: aws ecs describe-task-definition --task-definition ${{ env.PROJECT_NAME }}-ecs-websocket-family --query taskDefinition > tf.websocket.json
       - name: Deploy Service(WEBSOCKET)
         if: steps.tf-websocket.outcome == 'success'
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -102,7 +102,7 @@ jobs:
       - name: Download TaskDefinition(CELERY)
         id: tf-celery
         continue-on-error: true
-        run: aws ecs describe-task-definition --task-definition celery-family --query taskDefinition > tf.celery.json
+        run: aws ecs describe-task-definition --task-definition ${{ env.PROJECT_NAME }}-ecs-celery-family --query taskDefinition > tf.celery.json
       - name: Deploy Service(CELERY)
         if: steps.tf-celery.outcome == 'success'
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -115,7 +115,7 @@ jobs:
       - name: Download TaskDefinition(CELERYBEAT)
         id: tf-celerybeat
         continue-on-error: true
-        run: aws ecs describe-task-definition --task-definition celerybeat-family --query taskDefinition > tf.celerybeat.json
+        run: aws ecs describe-task-definition --task-definition ${{ env.PROJECT_NAME }}-ecs-celerybeat-family --query taskDefinition > tf.celerybeat.json
       - name: Deploy Service(CELERYBEAT)
         if: steps.tf-celerybeat.outcome == 'success'
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1

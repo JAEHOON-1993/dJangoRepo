@@ -1,0 +1,95 @@
+compatibilities:
+- EXTERNAL
+- EC2
+containerDefinitions:
+- command: []
+  cpu: 0
+  dependsOn:
+  - condition: START
+    containerName: web-app
+  dnsSearchDomains: []
+  dnsServers: []
+  dockerLabels: {}
+  dockerSecurityOptions: []
+  entryPoint: []
+  environment: []
+  environmentFiles: []
+  essential: true
+  extraHosts: []
+  image: 703937945463.dkr.ecr.ap-northeast-2.amazonaws.com/web-nginx:latest
+  links:
+  - web-app
+  logConfiguration:
+    logDriver: awslogs
+    options:
+      awslogs-group: /ecs/post-ecs
+      awslogs-region: ap-northeast-2
+      awslogs-stream-prefix: /ecs
+    secretOptions: []
+  mountPoints:
+  - containerPath: /static
+    sourceVolume: static
+  name: web-nginx
+  portMappings:
+  - containerPort: 8080
+    hostPort: 0
+    protocol: tcp
+  secrets: []
+  systemControls: []
+  ulimits: []
+  volumesFrom: []
+- command:
+  - /bin/bash -c "gunicorn --bind 0.0.0.0:8000 -k=gevent config.wsgi:application"
+  cpu: 0
+  dnsSearchDomains: []
+  dnsServers: []
+  dockerLabels: {}
+  dockerSecurityOptions: []
+  entryPoint:
+  - sh
+  - -c
+  environment:
+  - name: DJANGO_SETTINGS_MODULE
+    value: config.settings.prod
+  - name: REDIS_HOST
+    value: redis.post-ecs.ecs
+  environmentFiles: []
+  essential: true
+  extraHosts: []
+  image: 703937945463.dkr.ecr.ap-northeast-2.amazonaws.com/backend:latest
+  links: []
+  logConfiguration:
+    logDriver: awslogs
+    options:
+      awslogs-group: /ecs/post-ecs
+      awslogs-region: ap-northeast-2
+      awslogs-stream-prefix: /ecs
+    secretOptions: []
+  mountPoints:
+  - containerPath: /backend/static
+    sourceVolume: static
+  name: web-app
+  portMappings: []
+  secrets: []
+  systemControls: []
+  ulimits: []
+  volumesFrom: []
+cpu: '512'
+family: post-ecs-web-family
+memory: '512'
+placementConstraints: []
+registeredAt: '2021-12-02T18:17:15.405000+09:00'
+registeredBy: arn:aws:iam::703937945463:root
+requiresAttributes:
+- name: com.amazonaws.ecs.capability.logging-driver.awslogs
+- name: com.amazonaws.ecs.capability.ecr-auth
+- name: com.amazonaws.ecs.capability.docker-remote-api.1.19
+- name: com.amazonaws.ecs.capability.docker-remote-api.1.17
+- name: ecs.capability.container-ordering
+- name: com.amazonaws.ecs.capability.docker-remote-api.1.18
+revision: 1
+status: ACTIVE
+taskDefinitionArn: arn:aws:ecs:ap-northeast-2:703937945463:task-definition/post-ecs-web-family:1
+volumes:
+- host: {}
+  name: static
